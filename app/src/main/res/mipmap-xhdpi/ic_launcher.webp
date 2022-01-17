@@ -1,0 +1,53 @@
+/*
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package android.bluetooth.le;
+
+import android.annotation.RequiresNoPermission;
+import android.annotation.RequiresPermission;
+import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothUuid;
+import android.bluetooth.IBluetoothGatt;
+import android.bluetooth.IBluetoothManager;
+import android.bluetooth.annotations.RequiresBluetoothAdvertisePermission;
+import android.bluetooth.annotations.RequiresLegacyBluetoothAdminPermission;
+import android.content.AttributionSource;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.ParcelUuid;
+import android.os.RemoteException;
+import android.util.Log;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+/**
+ * This class provides a way to perform Bluetooth LE advertise operations, such as starting and
+ * stopping advertising. An advertiser can broadcast up to 31 bytes of advertisement data
+ * represented by {@link AdvertiseData}.
+ * <p>
+ * To get an instance of {@link BluetoothLeAdvertiser}, call the
+ * {@link BluetoothAdapter#getBluetoothLeAdvertiser()} method.
+ *
+ * @see AdvertiseData
+ */
+public final class BluetoothLeAdvertiser {
+
+    private static fin
