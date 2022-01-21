@@ -7,10 +7,12 @@ import retrofit2.Response
 class RickAndMortyRepository {
 
     suspend fun getCharacterById(characterId: Int): GetCharacterByIdResponse? {
-     val response = RetrofitInstance.apiClient.getCharacterById(characterId)
+        val request = RetrofitInstance.apiClient.getCharacterById(characterId)
 
-        if(response.isSuccessful) return response.body()!!
+        if(request.failed || !request.isSuccessFul) {
+            return null
+        }
 
-        return null
+        return request.body
     }
 }
