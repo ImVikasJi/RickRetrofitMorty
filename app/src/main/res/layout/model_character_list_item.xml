@@ -7,7 +7,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:cardCornerRadius="8dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/characterImageView"
@@ -21,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#AA000000"
+            android:maxLines="1"
             android:padding="16dp"
             android:textColor="@color/white"
             android:textSize="18sp"
