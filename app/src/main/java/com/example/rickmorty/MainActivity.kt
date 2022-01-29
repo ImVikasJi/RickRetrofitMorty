@@ -31,12 +31,12 @@ class MainActivity : AppCompatActivity() {
 
         rickAndMortyViewModel.refreshCharacter(54)
 
-        rickAndMortyViewModel.characterByIdLiveData.observe(this) { response ->
+        rickAndMortyViewModel.characterByIdLiveData.observe(this) { character ->
 
             /** This epoxyController will now contain the response and pass into the
             HeaderEpoxyModel , ImageEpoxyModel and DataPointEpoxyModel **/
-            epoxyController.characterResponse = response
-            if (response == null) {
+            epoxyController.character = character
+            if (character == null) {
                 Toast.makeText(this@MainActivity, "Unsuccessful Network Call", Toast.LENGTH_SHORT)
                     .show()
                 return@observe

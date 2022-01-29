@@ -2,6 +2,7 @@ package com.example.rickmorty.api
 
 import com.example.rickmorty.model.GetCharacterByIdResponse
 import com.example.rickmorty.model.GetCharacterPageResponse
+import com.example.rickmorty.model.GetEpisodeByIdResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 import retrofit2.Response
@@ -20,5 +21,16 @@ interface RickAndMortyService {
     suspend fun getCharacterPage(
         @Query("page") pageIndex: Int
     ): Response<GetCharacterPageResponse>
+
+    @GET("episode/{episode-id}")
+    suspend fun getEpisodeId(
+        @Path("episode-id") episodeId: Int
+    ): Response<GetEpisodeByIdResponse>
+
+    @GET("episode/{episode-range}")
+    suspend fun getEpisodeRange(
+        @Path("episode-range") episodeRange: String
+    ): Response<List<GetEpisodeByIdResponse>>
+
 
 }

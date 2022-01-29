@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rickmorty.domain.mappers.CharacterMapper
+import com.example.rickmorty.model.Character
 import com.example.rickmorty.model.GetCharacterByIdResponse
 import com.example.rickmorty.repository.RickAndMortyRepository
 import kotlinx.coroutines.launch
@@ -11,13 +13,13 @@ import kotlinx.coroutines.launch
 class RickAndMortyViewModel : ViewModel() {
     private val rickAndMortyRepository = RickAndMortyRepository()
 
-    private val _characterByIdLiveData = MutableLiveData<GetCharacterByIdResponse>()
-    val characterByIdLiveData: LiveData<GetCharacterByIdResponse> = _characterByIdLiveData
+    private val _characterByIdLiveData = MutableLiveData<Character?>()
+    val characterByIdLiveData: LiveData<Character?> = _characterByIdLiveData
 
     fun refreshCharacter(characterId: Int){
         viewModelScope.launch {
             val response =  rickAndMortyRepository.getCharacterById(characterId)
-            _characterByIdLiveData.postValue(response!!)
+            _characterByIdLiveData.postValue(response)
         }
     }
 }
