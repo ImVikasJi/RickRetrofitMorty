@@ -1,11 +1,11 @@
 package com.example.rickmorty.epoxy
 
 import android.view.View
+import com.airbnb.epoxy.Carousel
+import com.airbnb.epoxy.CarouselModel_
 import com.airbnb.epoxy.EpoxyController
 import com.example.rickmorty.R
-import com.example.rickmorty.databinding.ModelCharacterDetailsDataPointBinding
-import com.example.rickmorty.databinding.ModelCharacterDetailsHeaderBinding
-import com.example.rickmorty.databinding.ModelCharacterDetailsImageBinding
+import com.example.rickmorty.databinding.*
 import com.example.rickmorty.model.Character
 import com.example.rickmorty.model.GetCharacterByIdResponse
 import com.squareup.picasso.Picasso
@@ -34,7 +34,7 @@ class CharacterDetailsEpoxyController : EpoxyController() {
             LoadingEpoxyModel().id("loading").addTo(this)
         }
 
-        if(character == null){
+        if (character == null) {
             // todo error state
             return
         }
@@ -46,10 +46,25 @@ class CharacterDetailsEpoxyController : EpoxyController() {
             status = character!!.status
         ).id("header").addTo(this)
 
+
         // add image model
         ImageEpoxyModel(
             imageUrl = character!!.image
         ).id("image").addTo(this)
+
+        // Episode carousel list section
+        if (character!!.episodeList.isNotEmpty()) {
+            val items = character!!.episodeList.map {
+                EpisodeCarouselItemEpoxyModel(it).id(it.id)
+            }
+            TitleEpoxyModel("Episodes").id("titles_episodes").addTo(this)
+            CarouselModel_()
+                .id("episode_carousel")
+                .models(items)
+                .numViewsToShowOnScreen(1.15F)
+                .addTo(this)
+        }
+
 
         // add the data points models
         DataPointEpoxyModel(
@@ -96,5 +111,23 @@ class CharacterDetailsEpoxyController : EpoxyController() {
             labelTextView.text = title
             textView.text = description
         }
+    }
+
+    data class EpisodeCarouselItemEpoxyModel(
+        val episode: Character.Episode
+    ) : ViewBindingKotlinModel<ModelEpisodeCarouselItemBinding>(R.layout.model_episode_carousel_item) {
+        override fun ModelEpisodeCarouselItemBinding.bind() {
+            episodeTextView.text = episode.episode
+            episodeDetailsTextView.text = "${episode.name}\n${episode.airDate}"
+        }
+    }
+
+    data class TitleEpoxyModel(
+        val title: String
+    ): ViewBindingKotlinModel<ModelTitleBinding>(R.layout.model_title){
+        override fun ModelTitleBinding.bind() {
+            titleTextView.text = title
+        }
+
     }
 }
