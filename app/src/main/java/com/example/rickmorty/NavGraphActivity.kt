@@ -7,6 +7,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.rickmorty.databinding.ActivityNavGraphBinding
 
 class NavGraphActivity : AppCompatActivity() {
@@ -25,15 +26,24 @@ class NavGraphActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration(
+            topLevelDestinationIds = setOf(R.id.characterListFragment, R.id.episodeListFragment),
+            drawerLayout = binding.drawerLayout
+        )
         setupActionBarWithNavController(
             navController = navController,
             configuration = appBarConfiguration
         )
+
+        binding.navView.setupWithNavController(navController)
+        binding.navView.setCheckedItem(
+            navController.graph.startDestinationId
+        )
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(this,R.id.nav_host_fragment)
+        val navController = findNavController(this, R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
