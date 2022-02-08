@@ -4,6 +4,7 @@ import com.example.rickmorty.SimpleResponse
 import com.example.rickmorty.model.GetCharacterByIdResponse
 import com.example.rickmorty.model.GetCharacterPageResponse
 import com.example.rickmorty.model.GetEpisodeByIdResponse
+import com.example.rickmorty.model.GetEpisodePageResponse
 import retrofit2.Call
 import retrofit2.Response
 import java.lang.Exception
@@ -19,12 +20,27 @@ class ApiClient(
         return safeApiCall { rickAndMortyService.getCharacterPage(pageIndex) }
     }
 
+    suspend fun getCharactersPage(
+        characterName: String,
+        pageIndex: Int
+    ): SimpleResponse<GetCharacterPageResponse> {
+        return safeApiCall { rickAndMortyService.getCharactersPage(characterName, pageIndex) }
+    }
+
     suspend fun getEpisodeId(episode: Int): SimpleResponse<GetEpisodeByIdResponse>{
         return safeApiCall { rickAndMortyService.getEpisodeId(episode) }
     }
 
     suspend fun getEpisodeRange(episodeRange: String): SimpleResponse<List<GetEpisodeByIdResponse>>{
         return safeApiCall { rickAndMortyService.getEpisodeRange(episodeRange) }
+    }
+
+    suspend fun getEpisodesPage(pageIndex: Int): SimpleResponse<GetEpisodePageResponse>{
+        return safeApiCall { rickAndMortyService.getEpisodesPage(pageIndex) }
+    }
+
+    suspend fun getMultipleCharacters(characterList: List<String>): SimpleResponse<List<GetCharacterByIdResponse>> {
+        return safeApiCall { rickAndMortyService.getMultipleCharacters(characterList) }
     }
 
     //Function to get

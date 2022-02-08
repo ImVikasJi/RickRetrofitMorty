@@ -1,6 +1,7 @@
 package com.example.rickmorty.repository
 
 import com.example.rickmorty.api.RetrofitInstance
+import com.example.rickmorty.domain.RickAndMortyCache
 import com.example.rickmorty.domain.mappers.CharacterMapper
 import com.example.rickmorty.model.Character
 import com.example.rickmorty.model.GetCharacterByIdResponse
@@ -10,6 +11,13 @@ import retrofit2.Response
 class RickAndMortyRepository {
 
     suspend fun getCharacterById(characterId: Int): Character? {
+
+        val cachedCharacter = RickAndMortyCache.characterMap[characterId]
+        if(cachedCharacter != null){
+            return  cachedCharacter
+        }
+
+
         val request = RetrofitInstance.apiClient.getCharacterById(characterId)
 
         if (request.failed || !request.isSuccessFul) {
@@ -18,10 +26,12 @@ class RickAndMortyRepository {
 
         val networkEpisodes = getEpisodesFromCharacterResponse(request.body)
 
-        return CharacterMapper.buildForm(
+        val character =  CharacterMapper.buildForm(
             response = request.body,
             episodes = networkEpisodes
         )
+        RickAndMortyCache.characterMap[characterId] = character
+        return character
     }
 
     private suspend fun getEpisodesFromCharacterResponse(characterByIdResponse: GetCharacterByIdResponse)

@@ -18,24 +18,13 @@ class RickAndMortyViewModel : ViewModel() {
     val characterByIdLiveData: LiveData<Character?> = _characterByIdLiveData
 
 
-
-    fun refreshCharacter(characterId: Int){
-
-        // Check the cache for our character
-        val cachedCharacter = RickAndMortyCache.characterMap[characterId]
-        if(cachedCharacter != null){
-            _characterByIdLiveData.postValue(cachedCharacter)
-            return
-        }
+    fun refreshCharacter(characterId: Int) {
 
         //Otherwise, we need to make the network call
         viewModelScope.launch {
-            val response =  rickAndMortyRepository.getCharacterById(characterId)
-            _characterByIdLiveData.postValue(response)
+            val character = rickAndMortyRepository.getCharacterById(characterId)
+            _characterByIdLiveData.postValue(character)
 
-            response?.let {
-                RickAndMortyCache.characterMap[characterId] = it
-            }
         }
     }
 }

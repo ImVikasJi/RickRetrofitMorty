@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/episodeListFragment"
-        android:name="com.example.rickmorty.EpisodeListFragment"
+        android:name="com.example.rickmorty.episodes.EpisodeListFragment"
         android:label="Rick And Morty Episodes "
         tools:layout="@layout/fragment_episode_list">
 <!--        <action-->
@@ -46,5 +46,21 @@
 <!--            app:exitAnim="@anim/slide_out_to_left"-->
 <!--            app:popEnterAnim="@anim/slide_out_to_right"-->
 <!--            app:popExitAnim="@anim/slide_in_from_left" />-->
+        <action
+            android:id="@+id/action_episodeListFragment_to_episodeDetailBottomSheetFragment"
+            app:destination="@id/episodeDetailBottomSheetFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/episodeDetailBottomSheetFragment"
+        android:name="com.example.rickmorty.episodes.EpisodeDetailBottomSheetFragment"
+        android:label=""
+        tools:layout="@layout/fragment_episode_detail">
+
+        <argument
+            android:name="episodeId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+    </dialog>
+
 </navigation>

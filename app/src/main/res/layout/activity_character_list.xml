@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:padding="8dp"
         app:itemSpacing="8dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:spanCount="2"
         tools:itemCount="12"
         tools:listitem="@layout/model_character_list_item"/>

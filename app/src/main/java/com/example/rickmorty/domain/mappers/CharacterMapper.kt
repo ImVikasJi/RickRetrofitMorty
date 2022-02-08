@@ -6,7 +6,10 @@ import com.example.rickmorty.model.GetEpisodeByIdResponse
 
 object CharacterMapper {
 
-    fun buildForm(response: GetCharacterByIdResponse,episodes: List<GetEpisodeByIdResponse>): Character {
+    fun buildForm(
+        response: GetCharacterByIdResponse,
+        episodes: List<GetEpisodeByIdResponse> = emptyList()
+    ): Character {
         return Character(
             episodeList = episodes.map {
                 EpisodeMapper.buildForm(it)
